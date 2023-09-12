@@ -1,0 +1,151 @@
+1. Data Storage vs. Data Management:
+	- SQL is imperative language(we request the data, do not give instructions how it to be found)
+	- The table is the main building block of any relational DB
+	- Each row is called a record or entity
+	- Columns define the type of the data they contain
+	- Queries provide greater control and flexibility
+	
+2. PostgreSQL:
+	- PK = Primary Key (data type = serial)
+	- Predefined schema
+	- Vertically scalable(x2 faster processor does not make our DB twice faster)
+	
+3. SQL Queries:
+	CREATE DATABASE gamebar;
+	
+	UPDATE employees(update clause)
+	SET salary = salary * 1.1(expression)
+	WHERE job_title = "Cashier";(predicate)
+	
+DDL = DATA DEFINITION LANGUAGE	
+	CREATE
+	ALTER = change. eg.: if table already created, can add new col
+	DROP = delete whole table together with data
+	TRUNCATE = delete the data in the table but not the directory
+	
+	TRUNCATE employees;
+	
+DML = DATA MANIPULATION LANGUAGE
+	SELECT
+	INSERT
+	UPDATE = change. e.g.: first name from Mila to Bogomila
+	DELETE = delete the whole file
+	
+DCL = DATA CONTROL LANGUAGE
+	GRANT
+	REVOKE
+	DENY
+	
+TCL = TRANSACTION CONTROL LANGUAGE
+	BEGIN TRAN
+	COMMIT = confirm action
+	ROLLBACK = revert action
+	SAVE
+	
+4. Data Types in SQL:
+	- SMALLINT, INTEGER/INT, BIGINT
+	- DECIMAL, NUMERIC --> when we want to be exact(length/precision(10) + scale(2))
+	- REAL, DOUBLE PRECISION
+	- SMALLSERIAL, SERIAL, BIGSERIAL --> auto generates next number(used for PK)
+	
+	- CHAR - exact number
+	- VARCHAR - max number len
+	- TEXT - stores sting with any len, used for description
+	
+	- DATE - default now()
+	- TIME
+	- TIMESTAMP - both date and time
+	- TIMESTAMPTZ - adds time zone in which we are now
+	
+	SELECT now()
+	
+	email VARCHAR (50) UNIQUE
+	
+	balance DECIMAL(10,2) DEFAULT 0 
+	
+	id SERIAL PRIMARY KEY
+	
+	salary decimal(10,2) CHECK(salary>0) --> This constraint can check the range
+	
+	1.
+	CREATE DATABASE gamebar;
+	
+	2.
+	CREATE TABLE
+		employees(
+			id serial PRIMARY key not null,
+			first_name VARCHAR(30),
+			last_name VARCHAR(50),
+			hiring_date date DEFAULT '2023-01-01',
+			salary NUMERIC(10, 2),
+			devices_number int
+		);
+	CREATE TABLE
+		departments(
+			id serial PRIMARY KEY NOT NULL,
+			"name" VARCHAR(50),
+			code char(3),
+			description text
+		);
+	
+	CREATE TABLE
+		issues(
+			id serial PRIMARY KEY UNIQUE,
+			description varchar(150),
+			"date" date,
+			start TIMESTAMP
+	);
+	
+	3.
+	ALTER TABLE employees
+	ADD COLUMN middle_name VARCHAR(50)
+	
+	***
+	ALTER TABLE employee
+	RENAME TO employees
+	***
+	
+	4.
+	ALTER TABLE employees
+	ALTER COLUMN salary SET NOT null,
+	ALTER COLUMN salary SET default 0,
+	ALTER COLUMN hiring_date SET NOT null;
+	
+	5.
+	ALTER TABLE employees
+	ALTER COLUMN middle_name TYPE VARCHAR(100)
+	
+	
+	***
+	ALTER COLUMN middle_name TYPE text:: --> cast to text
+	***
+	
+	6.
+	TRUNCATE TABLE issues;
+	
+	***
+	SELECT * 
+		FROM issues
+	***
+	
+	7.
+	DROP TABLE departments
+	
+	
+5. Additions:
+	INSERT INTO people(fist_name,last_name)
+	VALUES
+		('Loko', 'Tokov'),
+		('Ala', 'Bala')
+		
+		
+	CREATE TABLE people(
+		id int PRIMARY KEY generated ALWAYS as identity,
+		first_name VARCHAR(30),
+		last_name VARCHAR(30),
+	)
+	
+	
+	alter SEQUENCE people_id_seq
+		START 5
+		INCREMENT 3
