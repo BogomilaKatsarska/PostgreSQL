@@ -1,0 +1,102 @@
+1.real(keeps smaller exactness) vs. double(takes more space, use it if you want to be exact) data types
+2. SERIAL vs. GENERATED ALWAYS AS IDENTITY(cannot add yourself id)
+
+	CREATE DATABASE minions_db;
+
+	CREATE TABLE minions(
+		id SERIAL PRIMARY KEY,
+		name VARCHAR(30),
+		age INTEGER,
+	);
+
+3. DELETE FORCE(do not use it, can break DB) vs DELETE CASCADE(can delete the related tables)
+
+	ALTER TABLE minions 
+	RENAME TO minions_info;
+
+	ALTER TABLE minions_info
+	ADD COLUMN code CHAR(4),
+	ADD COLUMN task TEXT,
+	ADD COLUMN salary NUMERIC(8,3); ***can use DECIMAL as well***
+
+	ALTER TABLE minions_info
+	RENAME COLUMN salary TO banana;
+
+	ALTER TABLE minions_info
+	ADD COLUMN email VARCHAR(20),
+	ADD COLUMN equipped BOOLEAN NOT NULL;  ****when we have BOOLEAN we can choose from: TRUE, FALSE or NULL***
+
+4. NULL(there is nothing in the memory cell) vs Empty String(no value, but is kind of string)
+
+	CREATE TYPE type_mood 
+	AS ENUM(
+		'happy', 
+		'relaxed', 
+		'stressed', 
+		'sad'
+	); 
+
+	ALTER TABLE minions_info
+	ADD COLUMN mood type_mood;
+
+- ADDITION from Dilyan:
+
+	CREATE TYPE address AS (
+		street TEXT,
+		city TEXT,
+		postal_code CHAR(4)
+	);
+
+
+	CREATE TABLE customers(
+		id SERIAL PRIMARY KEY,
+		customer_name TEXT,
+		customer_address address
+	);
+
+	INSERT INTO customers(customer_name, customer_address)
+		VALUES('Diyan', ('some street', 'sofia', '1000'));
+	
+	ALTER TABLE minions_info
+		ALTER COLUMN age SET DEFAULT 0,
+		ALTER COLUMN "name" SET DEFAULT '',
+		ALTER COLUMN code SET DEFAULT '';
+	
+- ADDITION from Dilyan:
+	
+	ALTER TABLE minions_info
+		ADD CONSTRAINT QU_email_and_id 
+		UNIQUE(id, email)
+		ADD CONSTRAINT CK_banana_is_positivie_number
+		CHECK (banana >0);
+		
+	ALTER TABLE minions_info
+    ALTER COLUMN task TYPE VARCHAR(150);
+	
+	ALTER TABLE minions_info
+	ALTER COLUMN equipped 
+	DROP NOT NULL;
+	
+	ALTER TABLE minions_info
+	DROP COLUMN age;
+	
+- ADDITION from Dilyan: RIGHT CLICK -> ERD for table
+
+	INSERT INTO minions_info 
+	(name, code, task, banana, email, equipped, mood)
+	VALUES
+	(..),
+	(..);
+	
+	SELECT name, task, email, banana FROM minions_info;
+	
+	TRUNCATE TABLE minions_info; --> deletes only the data from minions_info
+	
+	DROP TABLE minions_birthdays;
+	
+	DROP DATABASE minions_db WITH(FORCE);
+
+
+
+
+
