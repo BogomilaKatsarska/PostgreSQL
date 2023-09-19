@@ -1,0 +1,86 @@
+Basic CRUD
+A theory test on Basic CRUD in PostgreSQL - Made by Dian Kalaydzhiev
+ 
+1.To retrieve data from a table in PostgreSQL, which SQL clause do you use?
+A) FROM
+B) SELECT <--
+C) WHERE
+D) ORDER BY
+ 
+2.What is the purpose of the INSERT statement in pgSQL?
+A) To create a new table.
+B) To update existing records in a table.
+C) To add new records to a table.<--
+D) To delete records from a table.
+ 
+3.Which of the following is used to modify existing data in a PostgreSQL table?
+A) UPDATE <--
+B) ALTER
+C) ADD
+D) CHANGE
+ 
+4.In pgSQL, how do you delete data from a table?
+A) DESTROY
+B) ERASE
+C) REMOVE
+D) DELETE <--
+ 
+ 
+5.What is the purpose of a VIEW in PostgreSQL?
+A) It is used to create temporary tables.
+B) It allows you to store data permanently.
+C) It is used to provide security restrictions on tables.
+D) It is a virtual table based on the result of a SELECT query. <--
+ 
+ 
+6.In PostgreSQL, which statement is used to remove a table from the database?
+A) REMOVE TABLE
+B) DROP TABLE <--
+C) DELETE TABLE
+D) ERASE TABLE
+ 
+7.Which pgSQL statement is used to add a new column to an existing table?
+
+A) ALTER TABLE
+B) ADD COLUMN <--
+C) MODIFY COLUMN
+D) INSERT COLUMN
+ 
+8.What is the purpose of the ORDER BY clause in PostgreSQL?
+A) It is used to sort the result set in ascending or descending order. <--
+B) It is used to filter data based on a specific condition.
+C) It is used to combine data from multiple tables.
+D) It is used to create a backup of the database.
+ 
+9.Which of the following is the correct syntax to update data in a PostgreSQL table using the UPDATE statement?
+A) UPDATE table_name SET column_name = new_value;<--
+B) SET table_name column_name = new_value WHERE condition;
+C) UPDATE column_name = new_value FROM table_name WHERE condition;
+D) UPDATE table_name column_name = new_value WHERE condition;
+
+***
+1.
+SELECT e.id
+FROM employees as e;
+
+2.
+CONCAT_WS(" ","This", "is", "something") -> This is safe if we have null value
+
+3.
+OFFSET 3 LIMIT 1 -> skips first 3 rows, takes the following one only
+
+4.
+OFFSET starts from zero => if we want to remove 10 records we should write:
+OFFSET 10;
+
+5. 
+BETWEEN works inclusive (e.g.: BETWEEN 5 AND 10 includes 5 and 10
+
+6.
+RETURNING *;
+
+7. ILIKE - if we want case insensitive like
+
+FB Groups: DEV.BG JOBS
+
+***
